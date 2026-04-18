@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply transition-colors duration-300;
+}
+
+html, body, #root {
+  @apply h-full w-full;
+}
+
+body {
+  @apply bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white overflow-x-hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.2);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.4);
+}
+
+/* Glass morphism effect */
+.glass {
+  @apply bg-white/5 backdrop-blur-md border border-white/10;
+}
+
+.glass-lg {
+  @apply bg-white/5 backdrop-blur-xl border border-white/20;
+}
+
+/* Gradient text */
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-pink-300;
+}
+
+/* Glow effect */
+.glow {
+  @apply shadow-lg shadow-purple-500/20 hover:shadow-lg hover:shadow-purple-500/30;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Typography smoothing */
+p, h1, h2, h3, h4, h5, h6, span {
+  @apply text-opacity-100;
+}
