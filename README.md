@@ -1,5 +1,5 @@
-# 5G-Network
-🌐 The world's first outcome-indexed 5G platform — enterprises pay per business result, not bandwidth. Built on AWS with LangGraph AI, predictive SLA enforcement, and zero-dispute automated billing.
+# NexusXLA — 5G Network as a Service
+🌐 The world's first outcome-indexed 5G platform — enterprises pay per business result, not bandwidth. Built with LangGraph AI, React/TypeScript dashboard, and zero-dispute automated SLA enforcement.
 
 🔥 NexusXLA | Outcome-Indexed 5G Network as a Service
 
@@ -33,13 +33,17 @@ Telecom operators only get paid when enterprises actually succeed.
 
 ⚡ The Solution — 3 Core Engines
 
-🧠 1. Business Outcome Engine (BOE)
+🧠 1. Business Outcome Engine (BOE) ✅ BUILT & RUNNING
    Enterprise types plain English:
    "I need 300 robotic arms to weld with zero rework"
    ↓
-   LangGraph + LangChain AI agent translates this into
-   optimised 5G network slice parameters automatically.
+   LangGraph 4-node AI pipeline translates this into
+   3GPP-compliant 5G network slice parameters automatically.
    No telecom expertise required.
+
+   Nodes: Intent Parser → Slice Configurator → Validator → Output Formatter
+   Model: Groq llama-3.3-70b-versatile
+   Output: URLLC/eMBB/mMTC + latency + reliability + SLA tier + cost
 
 📡 2. Outcome Event Tracker (OET)
    Lightweight SDK integrates with enterprise ERP / MES / IoT.
@@ -54,11 +58,65 @@ Telecom operators only get paid when enterprises actually succeed.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+✅ CURRENT BUILD STATUS
+
+Component              | Status      | Details
+───────────────────────|─────────────|──────────────────────────────
+🧠 BOE Agent           | ✅ Running  | LangGraph 4-node pipeline
+🌐 React Frontend      | ✅ Running  | Purple/pink gradient UI
+⚡ FastAPI Backend      | ✅ Running  | Port 8000 with Swagger docs
+🔗 Frontend-API Proxy  | ✅ Working  | Vite proxy /api → :8000
+🧪 API Tests           | ✅ 6/6 Pass | All test cases passing
+🔗 Integration Tests   | ✅ 2/2 Pass | Frontend + backend verified
+📦 TypeScript          | ✅ Strict   | No type errors
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧠 BOE Agent — Test Results
+
+Input                                    | Slice  | Tier     | Cost/month
+─────────────────────────────────────────|────────|──────────|───────────
+300 robotic arms, precision welding      | URLLC  | PLATINUM | ₹5,00,000
+ICU monitoring, 50 beds, continuous ECG  | URLLC  | PLATINUM | ₹5,00,000
+10,000 warehouse packages, 5min updates  | mMTC   | GOLD     | ₹5,00,000
+5,000 smart city sensors, hourly updates | mMTC   | SILVER   | ₹1,50,000
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 🏗️ Architecture
 
 ┌─────────────────────────────────────────────────┐
+│         React + TypeScript Frontend              │
+│    Enterprise Portal  |  Operator Console        │
+│    (Vite · Tailwind · Framer Motion)             │
+└──────────────────────┬──────────────────────────┘
+                       │ Vite Proxy /api → :8000
+┌──────────────────────▼──────────────────────────┐
+│            FastAPI Backend (:8000)               │
+│         POST /configure-slice                    │
+└──────────────────────┬──────────────────────────┘
+                       │
+┌──────────────────────▼──────────────────────────┐
+│         LangGraph BOE Agent Pipeline             │
+│                                                  │
+│  Node 1          Node 2          Node 3          │
+│  Intent    →   Slice       →   Validator         │
+│  Parser        Configurator                      │
+│                                                  │
+│                    Node 4                        │
+│               Output Formatter                   │
+└──────────────────────┬──────────────────────────┘
+                       │
+┌──────────────────────▼──────────────────────────┐
+│           Groq LLM API                           │
+│      llama-3.3-70b-versatile                     │
+└─────────────────────────────────────────────────┘
+
+          ── Full AWS Production Architecture ──
+
+┌─────────────────────────────────────────────────┐
 │              React + TypeScript Frontend         │
-│     Enterprise Portal  |  Operator Console       │
+│          AWS Amplify / CloudFront + S3           │
 └──────────────────────┬──────────────────────────┘
                        │ AWS API Gateway (JWT)
 ┌──────────────────────▼──────────────────────────┐
@@ -83,15 +141,16 @@ Telecom operators only get paid when enterprises actually succeed.
 
 Category          | Technology
 ──────────────────|──────────────────────────────
-🤖 AI Agent       | LangGraph · LangChain · GPT
+🤖 AI Agent       | LangGraph · LangChain · Groq
 📈 ML Forecasting | Facebook Prophet · XGBoost
-☁️  Cloud          | AWS (ECS Fargate, IoT Core,
+🌐 Frontend       | React · TypeScript · Vite
+🎨 Styling        | Tailwind CSS · Framer Motion
+🔧 Backend        | FastAPI · Python · Uvicorn
+☁️  Cloud (MVP)    | AWS (ECS Fargate, IoT Core,
                   | Kinesis, Step Functions,
                   | RDS PostgreSQL, DocumentDB,
                   | API Gateway, Secrets Manager,
                   | CloudWatch, AWS Amplify)
-🔧 Backend        | Spring Boot · FastAPI · Python
-🌐 Frontend       | React · TypeScript
 🔐 Auth           | JWT · AWS Cognito
 📦 Infra          | Docker · Terraform
 
@@ -116,46 +175,92 @@ Category          | Technology
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-📚 Research Foundation
+🚀 Run Locally
 
-This project is grounded in peer-reviewed IEEE research:
+# 1. Clone the repo
+git clone https://github.com/Vaishnavi3-hub/5G-Network.git
+cd 5G-Network/nexusxla-boe
 
-📄 Alhuseini & Olama — 5G Service Value Chain Framework
-   (IEEE Access 2019) — user-story to slice automation
+# 2. Backend setup
+python -m venv venv
+venv\Scripts\activate        # Windows
+pip install -r requirements.txt
 
-📄 Bega et al. — Optimising 5G Infrastructure Markets
-   (IEEE INFOCOM 2017) — revenue-optimal admission control
+# 3. Add environment variable
+echo GROQ_API_KEY=your_key_here > .env
+# Get free key at console.groq.com
 
-📄 Zaki et al. — Network Slicing: Auction-Based Model
-   (IEEE ICC 2017) — joint resource + revenue optimisation
+# 4. Start backend (Terminal 1)
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
-📄 Luo et al. — Blockchain-Based Slice SLA Guarantee
-   (IEEE CommMag 2023) — trustless SLA enforcement
+# 5. Start frontend (Terminal 2)
+cd frontend
+npm install
+npm run dev
 
-📄 Bouzidi et al. — Dynamic E2E Slicing with Deep Learning
-   (IEEE ICCC 2024) — GRU + DNN predictive SLA management
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🏆 Built For
-
-Cognizant Hackathon — Communications, Media & Technology
-Track: 5G Monetisation — Build Enterprise 5G Services
-(Private Networks · Network Slicing · Edge Computing)
+# 6. Open browser
+# Dashboard  → http://localhost:3000
+# API Docs   → http://localhost:8000/docs
+# Health     → http://localhost:8000/health
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 📁 Project Structure
 
-nexusxla/
-├── 🧠 boe-agent/          # LangGraph intent-to-slice AI agent
-├── 📡 oet-sdk/            # Outcome Event Tracker SDK
-├── 📊 sla-engine/         # Prophet + XGBoost predictive SLA
-├── 🧾 billing-engine/     # Spring Boot XLA billing + ledger
-├── ☁️  telemetry/          # AWS IoT Core + Kinesis publisher
-├── 🌐 frontend/           # React + TypeScript dual portal
-├── 🔧 infra/              # Terraform + AWS CDK configs
-└── 📚 docs/               # Architecture diagrams + API specs
+nexusxla-boe/
+├── 🧠 boe_agent.py        # LangGraph 4-node BOE AI pipeline
+├── 🔧 main.py             # FastAPI server + REST endpoints
+├── 📋 requirements.txt    # Python dependencies
+├── 📚 PROJECT_CONTEXT.md  # Full technical documentation
+└── 🌐 frontend/
+    ├── src/
+    │   ├── components/
+    │   │   ├── Header.tsx        # Gradient branding bar
+    │   │   ├── InputPanel.tsx    # Enterprise request input
+    │   │   ├── OutputPanel.tsx   # Slice configuration results
+    │   │   ├── LoadingState.tsx  # 4-stage animated loader
+    │   │   └── SliceCard.tsx     # Reusable metric cards
+    │   ├── App.tsx               # Main 2-column layout
+    │   └── globals.css           # Tailwind + custom scrollbar
+    ├── vite.config.ts            # Dev server + API proxy
+    ├── tailwind.config.ts        # Purple/pink theme
+    └── package.json              # npm dependencies
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 Research Foundation
+
+This project is grounded in peer-reviewed IEEE research:
+
+📄 P1 — Alhuseini & Olama — 5G Service Value Chain Framework
+   (IEEE Access 2019) — user-story to slice automation
+   → Basis for BOE intent-to-slice translation
+
+📄 P2 — Bega et al. — Optimising 5G Infrastructure Markets
+   (IEEE INFOCOM 2017) — revenue-optimal admission control
+   → Grounds multi-tenant slice admission logic
+
+📄 P3 — Zaki et al. — Network Slicing: Auction-Based Model
+   (IEEE ICC 2017) — joint resource + revenue optimisation
+   → Validates outcome-based tiered billing model
+
+📄 P4 — Luo et al. — Blockchain-Based Slice SLA Guarantee
+   (IEEE CommMag 2023) — trustless SLA enforcement
+   → Validates automated credit issuance without arbitration
+
+📄 P5 — Bouzidi et al. — Dynamic E2E Slicing with Deep Learning
+   (IEEE ICCC 2024) — GRU + DNN predictive SLA management
+   → Justifies Prophet + XGBoost forecasting stack
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🏆 Built For
+
+Cognizant Technoverse Hackathon 2026
+Communications, Media & Technology Track
+Problem Statement: 5G Monetisation
+Build Enterprise 5G Services
+(Private Networks · Network Slicing · Edge Computing)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
